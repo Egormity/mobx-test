@@ -1,6 +1,6 @@
-import { FunctionComponent } from 'react';
+import { FunctionComponent } from "react";
 
-import styles from '../../style/ui/footer.module.scss';
+import styles from "../../style/ui/footer.module.scss";
 
 const Footer: FunctionComponent = () => {
   return (

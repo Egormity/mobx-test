@@ -1,34 +1,30 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from "react";
 
-import todos from '../store/todos';
+import todos from "../store/todos";
 
-import Button from './ui/Button';
-import Header from './ui/Header';
-import Footer from './ui/Footer';
-import ModalWindow from './ui/ModalWindow';
-import TodoList from './TodoList';
-import TodoDetails from './TodoDetails';
+import Button from "./ui/Button";
+import Header from "./ui/Header";
+import Footer from "./ui/Footer";
+import ModalWindow from "./ui/ModalWindow";
+import TodoList from "./TodoList";
+import TodoDetails from "./TodoDetails";
 
 const App: FunctionComponent = () => {
   const [isModalShown, setIsModalShown] = useState(false);
 
   function modalWindowToggler() {
-    setIsModalShown(prevModalState => !prevModalState);
+    setIsModalShown((prevModalState) => !prevModalState);
   }
 
   return (
     <>
       <Header modalToggler={modalWindowToggler} />
-      <main className='container main'>
-        {
-          isModalShown && 
-            <ModalWindow modalToggler={modalWindowToggler}>
-              <Button 
-                btnText='add todo' 
-                onClick={() => todos.addTask()}
-              />
-            </ModalWindow>
-        }
+      <main className="container main">
+        {isModalShown && (
+          <ModalWindow modalToggler={modalWindowToggler}>
+            <Button btnText="add todo" onClick={() => todos.addTask()} />
+          </ModalWindow>
+        )}
         <TodoList />
         <TodoDetails />
       </main>

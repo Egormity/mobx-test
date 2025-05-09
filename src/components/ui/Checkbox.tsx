@@ -1,18 +1,18 @@
-import { FunctionComponent, ComponentPropsWithoutRef } from 'react';
+import { FunctionComponent, ComponentPropsWithoutRef } from "react";
 
-import styles from '../../style/ui/input.module.scss';
+import styles from "../../style/ui/input.module.scss";
 
-interface CheckboxProps extends ComponentPropsWithoutRef<'input'> {
+interface CheckboxProps extends ComponentPropsWithoutRef<"input"> {
   id: string;
-};
+}
 
-const Checkbox: FunctionComponent<CheckboxProps> = ( {id, ...props} ) => {
+const Checkbox: FunctionComponent<CheckboxProps> = ({ id, ...props }) => {
   return (
     <>
-      <input 
-        {...props} 
+      <input
+        {...props}
         className={styles.checkbox}
-        type='checkbox'
+        type="checkbox"
         id={`checkbox-${id}`}
       />
       <label htmlFor={`checkbox-${id}`} className={styles.checkboxLabel} />

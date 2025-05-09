@@ -1,26 +1,33 @@
-import { makeAutoObservable } from 'mobx';
-import { v4 as uuidv4 } from 'uuid';
+import { makeAutoObservable } from "mobx";
+import { v4 as uuidv4 } from "uuid";
 
-import { TodoType } from '../types/types';
-import { recursionFilter, recursionCompleteToggler, recursionSearch, subTaskAdding } from '../utils/utils';
+import { TodoType } from "../types/types";
+import {
+  recursionFilter,
+  recursionCompleteToggler,
+  recursionSearch,
+  subTaskAdding,
+} from "../utils/utils";
 
 class Todos {
-  todoArray: TodoType[] = localStorage.todos ? JSON.parse(localStorage.todos) : [];
+  todoArray: TodoType[] = localStorage.todos
+    ? JSON.parse(localStorage.todos)
+    : [];
   activeTask: TodoType | null = null;
-  todoTitle = '';
-  todoText = '';
+  todoTitle = "";
+  todoText = "";
 
   constructor() {
-    makeAutoObservable(this)
+    makeAutoObservable(this);
   }
 
   titleHandler = (str: string) => {
     this.todoTitle = str;
-  }
+  };
 
   textHandler = (str: string) => {
     this.todoText = str;
-  }
+  };
 
   addTask = () => {
     if (this.todoTitle.trim().length) {
@@ -32,11 +39,11 @@ class Todos {
         subTasks: [],
       });
 
-      localStorage.setItem('todos', JSON.stringify(this.todoArray));
-      this.todoTitle = '';
-      this.todoText = '';
+      localStorage.setItem("todos", JSON.stringify(this.todoArray));
+      this.todoTitle = "";
+      this.todoText = "";
     }
-  }
+  };
 
   addSubtask = (id: string) => {
     if (this.todoTitle.trim().length) {
@@ -49,30 +56,30 @@ class Todos {
       };
 
       this.todoArray = subTaskAdding(id, this.todoArray, task);
-      localStorage.setItem('todos', JSON.stringify(this.todoArray));
-      this.todoTitle = '';
-      this.todoText = '';
+      localStorage.setItem("todos", JSON.stringify(this.todoArray));
+      this.todoTitle = "";
+      this.todoText = "";
     }
-  }
+  };
 
   removeTask = (id: string) => {
     this.todoArray = recursionFilter(id, this.todoArray);
-    localStorage.setItem('todos', JSON.stringify(this.todoArray));
+    localStorage.setItem("todos", JSON.stringify(this.todoArray));
 
     if (!this.todoArray.length) {
       this.activeTask = null;
-      localStorage.removeItem('todos');
+      localStorage.removeItem("todos");
     }
-  }
+  };
 
   completeToggler = (id: string) => {
     this.todoArray = recursionCompleteToggler(id, this.todoArray);
-    localStorage.setItem('todos', JSON.stringify(this.todoArray));
-  }
+    localStorage.setItem("todos", JSON.stringify(this.todoArray));
+  };
 
   chooseTask = (id: string) => {
     this.activeTask = recursionSearch(id, this.todoArray);
-  }
+  };
 }
 
 const todos = new Todos();
